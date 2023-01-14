@@ -1,21 +1,6 @@
 import React, { useReducer } from 'react';
 import Board from './Board';
 
-const reducer = (state, action) => {
-	switch (action.type) {
-        case 'MOVE':
-            return {
-                ...state,
-				history: state.history, concat({
-					squares: action.payload.squares,
-			}),
-			xIsNext: !state.xIsNext,
-            };
-        case 'RESET':
-            return {
-                ...state,
-}
-
 export default function Game() {
 	const [state, dispatch] = useReducer(reducer, {
 		xIsNext: true,
@@ -43,3 +28,18 @@ export default function Game() {
 		</div>
 	);
 }
+
+const reducer = (state, action) => {
+	switch (action.type) {
+		case 'MOVE':
+			return {
+				...state,
+				history: state.history.concat({
+					squares: action.payload.squares,
+				}),
+				xIsNext: !state.xIsNext,
+			};
+		default:
+			return state;
+	}
+};
